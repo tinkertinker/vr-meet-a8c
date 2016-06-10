@@ -11,13 +11,14 @@ var config = {
 	devtool: 'cheap-module-eval-source-map',
 	entry: {
 		app: [ path.join( __dirname, 'src', 'index.js' ) ],
-		common: [ 'react', 'aframe', 'aframe-react', 'lodash' ]
+		common: [ 'react', 'aframe', 'aframe-react', 'lodash', 'react-redux', 'redux', 'aframe-text-component', 'sockjs-client' ]
 	},
 	output: {
 		path: path.join( __dirname, 'public_html' ),
 		filename: '[name].js'
 	},
 	module: {
+		noParse: /node_modules\/aframe\/dist\/aframe.js/,
 		loaders: [
 			{ test: /\.jsx?$/, exclude: /node_modules/, loaders: [ 'babel-loader' ] },
 			{ test: /\.scss$/, exclude: /node_modules/, loader: 'style-loader!css-loader!postcss-loader!sass-loader' },
@@ -35,9 +36,6 @@ var config = {
 		new webpack.ProvidePlugin( { React: 'react' } ),
 		new webpack.DefinePlugin( { 'process.env': { NODE_ENV: JSON.stringify( process.env.NODE_ENV ) } } )
 	],
-	devServer: {
-		historyApiFallback: true
-	},
 	postcss: () => [
 		postcssFocus(),
 		cssnext( {
@@ -46,13 +44,32 @@ var config = {
 		postcssReporter( {
 			clearMessages: true
 		} ),
-	]
+	],
+	devServer: {
+		historyApiFallback: true,
+		stats: {
+			colors: true,
+			hash: false,
+			version: true,
+			timings: true,
+			assets: true,
+			chunks: false,
+			modules: false,
+			reasons: false,
+			children: false,
+			source: false,
+			errors: true,
+			errorDetails: true,
+			warnings: false,
+			publicPath: false
+		}
+	}
 };
 
-// XXX get rid of WebGL warnings - transparent
-// XXX transition between scenes
-// XXX initial page
+// XXX reduce image size - make power of 2
 // XXX react router to control places
+// XXX initial page
+// XXX transition between scenes
 
 if ( process.env.NODE_ENV === 'production' ) {
 	config.plugins.push( new webpack.optimize.UglifyJsPlugin( { compress: { warnings: false } } ) );

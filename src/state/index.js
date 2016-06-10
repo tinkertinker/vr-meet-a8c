@@ -4,31 +4,12 @@ import {
 	combineReducers,
 	compose,
 } from 'redux';
-import {
-	WORLD_SET_FOCUS,
-	WORLD_SELECT,
-} from './types';
+
 import thunk from 'redux-thunk';
-
-function world( state = {}, action ) {
-	switch ( action.type ) {
-		case WORLD_SET_FOCUS:
-			return Object.assign( {}, state, { worldFocus: action.position} );
-
-		case WORLD_SELECT:
-			return Object.assign( {}, state, { worldFocus: -1, currentWorld: action.position } );
-	}
-
-	return state;
-}
-
-function vrMode( state = {}, action ) {
-	return state;
-}
+import world from 'state/world/reducer';
 
 const reducer = combineReducers( {
 	world,
-	vrMode,
 } );
 
 const middlewares = [
@@ -36,12 +17,21 @@ const middlewares = [
 ];
 
 export function createReduxStore( initialState = {} ) {
-	return createStore(
+	const store = createStore(
 		reducer,
 		initialState,
 		compose(
 			applyMiddleware( ...middlewares ),
-			process.env.NODE_ENV === 'development' && typeof window !== 'undefined' && window.devToolsExtension ? window.devToolsExtension() : f => f
+			process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.devToolsExtension ? window.devToolsExtension() : f => f
 		)
 	);
+
+	if ( module.hot ) {
+		module.hot.accept( 'state', () => {
+			const nextReducer = require( 'state/world/reducer' );
+			store.replaceReducer( nextReducer );
+		} );
+	}
+
+	return store;
 }

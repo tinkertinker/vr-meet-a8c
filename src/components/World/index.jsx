@@ -7,7 +7,7 @@ import Gravatar from '../Gravatar';
 import Photos from '../Photos';
 import {
 	selectHome,
-} from 'state/actions';
+} from 'state/world/actions';
 
 const World = ( props ) => {
 	const { world, onHome } = props;

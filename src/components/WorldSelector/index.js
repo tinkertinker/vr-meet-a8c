@@ -9,7 +9,7 @@ import {
 	setWorldFocus,
 	clearWorldFocus,
 	selectWorld
-} from 'state/actions';
+} from 'state/world/actions';
 
 const WorldSelector = ( props ) => {
 	const { world, position, onFocus, onClearFocus, worldFocus, onSelectWorld } = props;

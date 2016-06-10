@@ -4,7 +4,7 @@
   "description": "Meet a Tinker",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=tinker* webpack-dev-server --progress --colors --hot --content-base=./public_html --config ./webpack.config.js --port 3312",
+    "start": "DEBUG=tinker* webpack-dev-server --progress --colors --hot  --content-base=./public_html --config ./webpack.config.js --port 3312",
     "dist": "NODE_ENV=production webpack --progress --colors --config ./webpack.config.js"
   },
   "author": "",

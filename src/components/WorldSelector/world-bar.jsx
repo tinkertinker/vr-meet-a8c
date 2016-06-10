@@ -10,11 +10,14 @@ const WorldBar = ( props ) => {
 		width: 1.3,
 		depth: 0.1
 	};
-	const material = {
+	let material = {
 		src: 'url(' + background + ')',
 		transparent: true,
 		opacity: 0.6,
-		color: isSelected ? 'red' : 'transparent',
+	};
+
+	if ( isSelected ) {
+		material.color = 'rsedd';
 	}
 
 	return (
