@@ -16,7 +16,7 @@ const middlewares = [
 	thunk,
 ];
 
-export function createReduxStore( initialState = {} ) {
+export default function createReduxStore( initialState = {} ) {
 	const store = createStore(
 		reducer,
 		initialState,

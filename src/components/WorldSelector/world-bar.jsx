@@ -17,7 +17,7 @@ const WorldBar = ( props ) => {
 	};
 
 	if ( isSelected ) {
-		material.color = 'rsedd';
+		material.color = 'red';
 	}
 
 	return (
