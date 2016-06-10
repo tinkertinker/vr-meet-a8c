@@ -11,7 +11,6 @@ var config = {
 	devtool: 'cheap-module-eval-source-map',
 	entry: {
 		app: [ path.join( __dirname, 'src', 'index.js' ) ],
-		common: [ 'react', 'aframe', 'aframe-react', 'lodash', 'react-redux', 'redux', 'aframe-text-component', 'sockjs-client' ]
 	},
 	output: {
 		path: path.join( __dirname, 'public_html' ),
@@ -30,7 +29,6 @@ var config = {
 		modulesDirectories: [ __dirname, 'src', 'node_modules' ],
 	},
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin( { name: 'common' } ),
 		new webpack.NoErrorsPlugin(),
 		new HtmlWebpackPlugin( { title: 'Meet-a-Tinker', template: path.join( 'src', 'index.ejs' ) } ),
 		new webpack.ProvidePlugin( { React: 'react' } ),
@@ -66,17 +64,14 @@ var config = {
 	}
 };
 
-// XXX reduce image size - make power of 2
-// XXX react router to control places
-// XXX initial page
-// XXX transition between scenes
-
 if ( process.env.NODE_ENV === 'production' ) {
 	config.plugins.push( new webpack.optimize.UglifyJsPlugin( { compress: { warnings: false } } ) );
 	config.plugins.push( new webpack.optimize.DedupePlugin() );
 } else {
+	config.plugins.push( new webpack.optimize.CommonsChunkPlugin( { name: 'common' } ) );
 	config.entry.app.push( 'webpack-dev-server/client?http://0.0.0.0:3312' );
 	config.entry.app.push( 'webpack/hot/only-dev-server' );
+	config.entry.common = [ 'react', 'aframe', 'aframe-react', 'lodash', 'react-redux', 'redux', 'aframe-text-component', 'sockjs-client' ];
 }
 
 module.exports = config;

@@ -1,15 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createReduxStore } from './state'
-import App from './components/App'
-import './index.scss';
 
+import createReduxStore from 'state'
+import createRoutes from './routes';
 import initialState from './state/initial.json';
+import './index.scss';
 
 render(
 	<Provider store={ createReduxStore( initialState ) }>
-		<App />
+		{ createRoutes() }
 	</Provider>,
 
 	document.getElementById( 'app' )
