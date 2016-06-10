@@ -4,7 +4,7 @@ import { Scene } from 'aframe-react';
 import { connect } from 'react-redux';
 import Camera from '../Camera'
 import Cursor from '../Cursor'
-import WorldSelection from '../WorldSelector/world-selection';
+import StackedSelector from '../StackedSelector';
 import World from '../World';
 
 const App = React.createClass( {
@@ -17,7 +17,7 @@ const App = React.createClass( {
 					<Cursor isSelected={ worldFocus !== -1 }/>
 				</Camera>
 
-				{ currentWorld === -1 ? <WorldSelection worlds={ worlds }/> : <World world={ worlds[currentWorld] }/> }
+				{ currentWorld === -1 ? <StackedSelector items={ worlds }/> : <World world={ worlds[currentWorld] }/> }
 			</Scene>
 		);
 	}

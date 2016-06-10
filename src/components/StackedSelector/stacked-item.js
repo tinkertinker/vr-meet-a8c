@@ -11,15 +11,15 @@ import {
 	selectWorld
 } from 'state/world/actions';
 
-const WorldSelector = ( props ) => {
-	const { world, position, onFocus, onClearFocus, worldFocus, onSelectWorld } = props;
+const StackedItem = ( props ) => {
+	const { item, position, onFocus, onClearFocus, worldFocus, onSelectWorld } = props;
 	const height = 0.5;
 	const yOffset = ( height + 0.1 ) * position;
 
 	return (
 		<Entity onMouseEnter={ () => onFocus( position )} onMouseLeave={ () => onClearFocus() } onClick={ () => onSelectWorld( position ) }>
-			<WorldBar yOffset={ yOffset } height={ height } background={ world.thumbnail } isSelected={ position === worldFocus }/>
-			<WorldText text={ world.name } yOffset={ yOffset } isSelected={ position === worldFocus }/>
+			<WorldBar yOffset={ yOffset } height={ height } background={ item.thumbnail } isSelected={ position === worldFocus }/>
+			<WorldText text={ item.name } yOffset={ yOffset } isSelected={ position === worldFocus }/>
 		</Entity>
 	);
 };
@@ -47,4 +47,4 @@ function mapDispatchToProps( dispatch ) {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)( WorldSelector );
+)( StackedItem );
