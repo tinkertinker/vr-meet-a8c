@@ -4,6 +4,7 @@
 import {
 	WORLD_SET_FOCUS,
 	WORLD_SELECT,
+	WORLD_VIEW_GLOBE,
 } from './types';
 
 export function setWorldFocus( position ) {
@@ -24,6 +25,7 @@ export function selectWorld( world ) {
 	return {
 		type: WORLD_SELECT,
 		position: world,
+		view: 'world',
 	};
 }
 
@@ -31,5 +33,13 @@ export function selectHome() {
 	return {
 		type: WORLD_SELECT,
 		position: -1,
+		view: 'home',
+	};
+}
+
+export function viewGlobe( world ) {
+	return {
+		type: WORLD_VIEW_GLOBE,
+		world,
 	};
 }

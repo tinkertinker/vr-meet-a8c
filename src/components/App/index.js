@@ -6,36 +6,58 @@ import Camera from '../Camera'
 import Cursor from '../Cursor'
 import StackedSelector from '../StackedSelector';
 import World from '../World';
+import Globe from '../Globe';
+import { loadUsers } from 'state/people/actions';
 
 const App = React.createClass( {
+	componentDidMount: function() {
+		if ( this.props.worlds.length === 0 ) {
+			this.props.onLoadUsers();
+		}
+	},
+
 	render: function() {
-		const { worlds, worldFocus, currentWorld } = this.props;
+		const { worlds, worldFocus, currentWorld, view, world } = this.props;
+		let contents;
+
+		if ( view === 'home' ) {
+			contents = <StackedSelector items={ worlds }/>;
+		} else if ( view === 'world' ) {
+			contents = <World world={ worlds[currentWorld] }/>;
+		} else if ( view === 'globe' ) {
+			contents = <Globe world={ currentWorld }/>
+		}
 
 		return (
 			<Scene>
-				<Camera position="-1 0 3.5">
+				<Camera position={ [ -1.3, 1, 3 ] }>
 					<Cursor isSelected={ worldFocus !== -1 }/>
 				</Camera>
 
-				{ currentWorld === -1 ? <StackedSelector items={ worlds }/> : <World world={ worlds[currentWorld] }/> }
+				{ contents }
 			</Scene>
 		);
 	}
 } );
 
-// Which part of the Redux global state does our component want to receive as props?
 function mapStateToProps( state ) {
-	const { world } = state;
+	const { people, world } = state;
 
 	return {
-		worlds: world.worlds,
+		view: world.view,
+		world: world.world,
+		worlds: people.list,
 		worldFocus: world.worldFocus,
 		currentWorld: world.currentWorld,
 	};
 }
 
 function mapDispatchToProps( dispatch ) {
-	return {}
+	return {
+		onLoadUsers: () => {
+			dispatch( loadUsers() );
+		},
+	}
 }
 
 export default connect(

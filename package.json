@@ -36,13 +36,17 @@
   },
   "dependencies": {
     "aframe": "^0.2.0",
+    "aframe-extras": "^1.16.2",
     "aframe-react": "^2.0.0",
     "aframe-text-component": "^0.3.0",
+    "babel-polyfill": "^6.9.1",
     "classnames": "^2.2.5",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-saga": "^0.10.5",
+    "striptags": "^2.1.1"
   }
 }

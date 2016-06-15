@@ -4,22 +4,29 @@ import { Entity } from 'aframe-react';
 import { connect } from 'react-redux';
 
 import WorldBar from './world-bar';
-import WorldText from './world-text';
 import {
 	setWorldFocus,
 	clearWorldFocus,
 	selectWorld
 } from 'state/world/actions';
 
+const ITEM_WIDTH = 0.5;
+const ITEM_HEIGHT = 0.5;
+const ITEM_PER_ROW = 10;
+
+const calcPosition = ( pos, max, width, height ) => {
+	const row = Math.floor( pos / ITEM_PER_ROW );
+	const placeInRow = pos % ITEM_PER_ROW;
+
+	return [ -4 + ( placeInRow * width ) + ( ( placeInRow * width ) / 2 ), 2 * height, 0 - ( row * width ) + ( width / 2 ) ];
+}
+
 const StackedItem = ( props ) => {
-	const { item, position, onFocus, onClearFocus, worldFocus, onSelectWorld } = props;
-	const height = 0.5;
-	const yOffset = ( height + 0.1 ) * position;
+	const { item, position, max, onFocus, onClearFocus, worldFocus, onSelectWorld } = props;
 
 	return (
 		<Entity onMouseEnter={ () => onFocus( position )} onMouseLeave={ () => onClearFocus() } onClick={ () => onSelectWorld( position ) }>
-			<WorldBar yOffset={ yOffset } height={ height } background={ item.thumbnail } isSelected={ position === worldFocus }/>
-			<WorldText text={ item.name } yOffset={ yOffset } isSelected={ position === worldFocus }/>
+			<WorldBar height={ ITEM_HEIGHT } width={ ITEM_WIDTH } background={ item.image } isSelected={ position === worldFocus } position={ calcPosition( position, max, ITEM_WIDTH, ITEM_HEIGHT ) }/>
 		</Entity>
 	);
 };

@@ -3,17 +3,17 @@ import 'aframe';
 import { Entity } from 'aframe-react';
 
 const WorldBar = ( props ) => {
-	const { height, yOffset, background, isSelected } = props;
+	const { height, width, position, background, isSelected } = props;
 	const worldSelector = {
 		primitive: 'box',
 		height: height,
-		width: 1.3,
+		width: width,
 		depth: 0.1
 	};
 	let material = {
-		src: 'url(' + background + ')',
+		src: 'url(' + background.replace( 's=200', 's=512' ) + ')',
 		transparent: true,
-		opacity: 0.6,
+		opacity: 0.9,
 	};
 
 	if ( isSelected ) {
@@ -21,7 +21,7 @@ const WorldBar = ( props ) => {
 	}
 
 	return (
-		<Entity geometry={ worldSelector } material={ material } position={ [ 0, yOffset, 0 ] }></Entity>
+		<Entity geometry={ worldSelector } material={ material } position={ position }></Entity>
 	);
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import 'aframe';
-import 'aframe-text-component';
+//import 'aframe-text-component';
 import { Entity } from 'aframe-react';
 
 const WorldText = ( props ) => {

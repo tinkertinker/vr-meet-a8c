@@ -3,16 +3,18 @@ import 'aframe';
 import { Entity } from 'aframe-react';
 
 import StackedItem from './stacked-item';
+import Ground from '../Ground';
+import Sky from '../Sky';
 
 const StackedSelector = ( props ) => {
 	const { items } = props;
 
 	return (
 		<Entity>
-			{ items.map( ( item, index ) => <StackedItem item={ item } key={ index } position={ index }/> ) }
+			{ items.map( ( item, index ) => <StackedItem item={ item } key={ index } position={ index } max={ items.length }/> ) }
 
-			<a-sky src="sky/sky.jpg"></a-sky>
-			<Entity sound={ { src: 'music/main-waves.mp4', autoplay: true } }></Entity>
+			<Sky url="sky/clouds.jpg"/>
+			<Ground/>
 		</Entity>
 	);
 };

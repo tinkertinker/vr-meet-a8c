@@ -5,15 +5,20 @@ import {
 	compose,
 } from 'redux';
 
-import thunk from 'redux-thunk';
 import world from 'state/world/reducer';
+import people from 'state/people/reducer';
+import createSagaMiddleware from 'redux-saga';
+import mySagas from './sagas';
 
 const reducer = combineReducers( {
 	world,
+	people,
 } );
 
+const sagaMiddleware = createSagaMiddleware();
+
 const middlewares = [
-	thunk,
+	sagaMiddleware,
 ];
 
 export default function createReduxStore( initialState = {} ) {
@@ -33,5 +38,6 @@ export default function createReduxStore( initialState = {} ) {
 		} );
 	}
 
+	sagaMiddleware.run( mySagas );
 	return store;
 }

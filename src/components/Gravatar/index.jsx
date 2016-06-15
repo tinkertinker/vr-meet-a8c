@@ -1,54 +1,77 @@
 import React from 'react';
-import 'aframe';
 import { Entity } from 'aframe-react';
+import { connect } from 'react-redux';
+import Text from '../Text';
+import { readBio, showVideo } from 'state/people/actions';
+import cleanupText from 'lib/text';
+import adjustPosition from 'lib/position';
 
-const BioLine = ( props ) => {
-	const { text, pos } = props;
-	const textProps = {
-		text: text,
-		size: 0.2,       // Text height
-		height: 0.01,    // The depth of the text
-	};
-	const textMaterial = {
-		color: 'white',
-	};
+const GRAVATAR_IMAGE_SIZE = 2;
+const GRAVATAR_DEPTH = 0.1;
+const GRAVATAR_BOX_WIDTH = 9;
+const GRAVATAR_BOX_HEIGHT = 2;
 
-	return (
-		<Entity text={ textProps } position={ [ 0.85, 0.47 - ( pos * 0.4 ), -0.9 ] } material={ textMaterial }></Entity>
-	);
-};
-
-const Biograph = ( props ) => {
-	const { text } = props;
-
-	return (
-		<Entity>
-			{ text.map( ( line, pos ) => <BioLine text={ line } pos={ pos } key={ pos }/> ) }
-		</Entity>
-	);
-};
-
-const Gravatar = ( props ) => {
-	const { url, text } = props;
-	const gravatar = {
+const GravatarImage = ( props ) => {
+	const { size, position, onClick } = props;
+	const geometry = {
 		primitive: 'box',
-		height: 2,
-		width: 1.3,
-		depth: 0.1
+		height: size,
+		width: size,
+		depth: GRAVATAR_DEPTH,
 	};
 	const material = {
-		src: 'url(' + url + ')',
+		src: 'url(' + props.url.replace( 's=200', 's=512' ) + ')',
 		transparent: true,
 		opacity: 0.9,
 	};
 
 	return (
-		<Entity>
-			<Entity geometry={ gravatar } material={ material } position={ [ 0, 0, -1 ] }></Entity>
-			<Entity geometry={ { primitive: 'box', width: 7, height: 2, depth: 0.05 } } position={ [ 3, 0, -1 ] }></Entity>
-			<Biograph text={ text }/>
+		<Entity geometry={ geometry } material={ material } position={ position } onClick={ onClick }></Entity>
+	);
+};
+
+const GravatarBox = ( props ) => {
+	const { width, height, position, onClick } = props;
+	const geometry = {
+		primitive: 'box',
+		width,
+		height,
+		depth: GRAVATAR_DEPTH,
+	};
+	const material = {
+		color: '#222'
+	}
+
+	return (
+		<Entity geometry={ geometry } position={ position } material={ material } onClick={ onClick }></Entity>
+	);
+};
+
+const Gravatar = ( props ) => {
+	const { url, text, position, onReadBio, onShowVideo } = props;
+	const blockX = ( GRAVATAR_IMAGE_SIZE / 2 ) + ( GRAVATAR_BOX_WIDTH / 2 );
+
+	return (
+		<Entity position={ adjustPosition( position, [ 0, 0, GRAVATAR_DEPTH] ) }>
+			<GravatarImage position={ [ 0, 0, 0 ] } url={ url } size={ GRAVATAR_IMAGE_SIZE } onClick={ () => onShowVideo() }/>
+			<GravatarBox position={ [ blockX, 0, 0 ] } width={ GRAVATAR_BOX_WIDTH } height={ GRAVATAR_BOX_HEIGHT } onClick={ () => onReadBio( cleanupText( text ) ) }/>
+			<Text text={ text } maxWidth={ 70 } size={ 0.05 } position={ [ ( GRAVATAR_IMAGE_SIZE / 2 ) + 0.1, 0.65, 0.1 ] }/>
 		</Entity>
 	);
 };
 
-export default Gravatar;
+function mapDispatchToProps( dispatch ) {
+	return {
+		onReadBio: ( text ) => {
+			dispatch( readBio( text ) );
+		},
+		onShowVideo: () => {
+			dispatch( showVideo() );
+		}
+	}
+}
+
+export default connect(
+	null,
+	mapDispatchToProps
+)( Gravatar );

@@ -8,13 +8,13 @@ const postcssFocus = require( 'postcss-focus' );
 const postcssReporter = require( 'postcss-reporter' );
 
 var config = {
-	devtool: 'cheap-module-eval-source-map',
 	entry: {
-		app: [ path.join( __dirname, 'src', 'index.js' ) ],
+		app: [ 'babel-polyfill', path.join( __dirname, 'src', 'index.js' ) ],
 	},
 	output: {
-		path: path.join( __dirname, 'public_html' ),
-		filename: '[name].js'
+		path: path.join( __dirname, 'public_html', 'meet2' ),
+		filename: '[name].js',
+		publicPath: '/meet2/'
 	},
 	module: {
 		noParse: /node_modules\/aframe\/dist\/aframe.js/,
@@ -32,7 +32,7 @@ var config = {
 		new webpack.NoErrorsPlugin(),
 		new HtmlWebpackPlugin( { title: 'Meet-a-Tinker', template: path.join( 'src', 'index.ejs' ) } ),
 		new webpack.ProvidePlugin( { React: 'react' } ),
-		new webpack.DefinePlugin( { 'process.env': { NODE_ENV: JSON.stringify( process.env.NODE_ENV ) } } )
+		new webpack.DefinePlugin( { 'process.env': { NODE_ENV: JSON.stringify( process.env.NODE_ENV || 'development' ) } } )
 	],
 	postcss: () => [
 		postcssFocus(),
@@ -44,7 +44,9 @@ var config = {
 		} ),
 	],
 	devServer: {
-		historyApiFallback: true,
+		historyApiFallback: {
+			index: '/meet2/'
+		},
 		stats: {
 			colors: true,
 			hash: false,
@@ -68,10 +70,11 @@ if ( process.env.NODE_ENV === 'production' ) {
 	config.plugins.push( new webpack.optimize.UglifyJsPlugin( { compress: { warnings: false } } ) );
 	config.plugins.push( new webpack.optimize.DedupePlugin() );
 } else {
+	config.devtool = 'cheap-module-eval-source-map';
 	config.plugins.push( new webpack.optimize.CommonsChunkPlugin( { name: 'common' } ) );
 	config.entry.app.push( 'webpack-dev-server/client?http://0.0.0.0:3312' );
 	config.entry.app.push( 'webpack/hot/only-dev-server' );
-	config.entry.common = [ 'react', 'aframe', 'aframe-react', 'lodash', 'react-redux', 'redux', 'aframe-text-component', 'sockjs-client' ];
+	config.entry.common = [ 'react', 'aframe', 'aframe-react', 'lodash', 'react-redux', 'redux', 'aframe-extras', 'aframe-text-component', 'sockjs-client' ];
 }
 
 module.exports = config;

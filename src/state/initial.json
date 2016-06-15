@@ -1,100 +1,13 @@
 {
 	"world": {
-		"worlds": [
-			{
-				"name": "John",
-				"thumbnail": "background/background-john.jpg",
-				"sky": "sky/sky-john.jpg",
-				"music": "music/music-john.mp3",
-				"gravatar": "https://gravatar.com/avatar/9a419872cd589af5dc1efd6ea491ff2b?s=640",
-				"bio": [
-					"International super-spy, general meanderer,",
-					"and sometime sprout collector.",
-					"Also found working at Automattic"
-				],
-				"photos": [
-					"photo/john/yasaka-lanterns.jpg",
-					"photo/john/gion-at-night-man.jpg"
-				]
-			},
-			{
-				"name": "Joen",
-				"thumbnail": "background/background-joen.jpg",
-				"sky": "sky/sky-joen.jpg",
-				"music": "music/music-joen.m4a",
-				"gravatar": "https://gravatar.com/avatar/7fda1da9c34e978d5990afd7f58ca0f4?s=640",
-				"bio": [
-					"Design wrangler at Automattic.",
-					"I believe in gravity,",
-					"the moon-landing",
-					"and well-mixed white russians."
-				],
-				"photos": [
-					"photo/joen/joen.jpg",
-					"photo/joen/background-cupcake.png"
-				]
-			},
-			{
-				"name": "Toni",
-				"thumbnail": "background/background-toni.jpg",
-				"sky": "sky/sky-toni.jpg",
-				"music": "music/music-toni.mp3",
-				"gravatar": "https://0.gravatar.com/avatar/64f2de49d87fc6eac9228c6faab342a3?s=640",
-				"bio": [
-					"Partner at True Ventures.",
-					"Team lead at Automattic.",
-					"Advisor at Bandcamp, Handshake,",
-					"Hatch Baby, Madefire, and Renovo Motors."
-				],
-				"photos": [
-					"photo/toni/toni.jpg",
-					"photo/toni/img_3432.jpg"
-				]
-			},
-			{
-				"name": "Marcus",
-				"thumbnail": "background/background-marcus.jpg",
-				"sky": "sky/sky-marcus.jpg",
-				"music": "music/music-marcus.mp3",
-				"gravatar": "https://0.gravatar.com/avatar/fc45b574f01cde91f5d1603335ea77c3?s=640",
-				"bio": [
-					"Tinkerer @ Automattic"
-				],
-				"photos": [
-					"photo/marcus/361570030001-1200x800.jpg",
-					"photo/marcus/282500030025.jpg"
-				]
-			},
-			{
-				"name": "Mo",
-				"thumbnail": "background/background-mo.jpg",
-				"sky": "sky/sky-mo.jpg",
-				"music": "music/music-mo.m4a",
-				"gravatar": "https://0.gravatar.com/avatar/f2ad3d5d58caa9fdf62303e6bc56d09b?s=640",
-				"bio": [
-					"I wrangle code at Automattic.",
-					"I enjoy ice cream."
-				],
-				"photos": [
-					"photo/mo/wp-image-1729587101jpg.jpg",
-					"photo/mo/wp-image-828824605jpg.jpg"
-				]
-			},
-			{
-				"name": "Beau",
-				"thumbnail": "background/background-beau.jpg",
-				"sky": "sky/sky-beau.jpg",
-				"music": "music/music-beau.m4a",
-				"gravatar": "https://gravatar.com/avatar/709977fc8f4496966d454a01eab615f6?s=640",
-				"bio": [
-					"I design digital things."
-				],
-				"photos": [
-					"photo/beau/beau.jpg"
-				]
-			}
-		],
 		"worldFocus": -1,
-		"currentWorld": -1
+		"currentWorld": -1,
+		"view": "home",
+		"world": null
+	},
+	"people": {
+		"list": [],
+		"status": "loading",
+		"playVideo": false
 	}
 }
