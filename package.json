@@ -4,7 +4,7 @@
   "description": "Meet a Tinker",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=tinker* webpack-dev-server --progress --colors --hot  --content-base=./public_html --config ./webpack.config.js --port 3312",
+    "start": "NODE_ENV=development DEBUG=tinker* webpack-dev-server --progress --colors --hot  --content-base=./public_html --config ./webpack.config.js --port 3312",
     "dist": "NODE_ENV=production webpack --progress --colors --config ./webpack.config.js"
   },
   "author": "",
@@ -16,6 +16,7 @@
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
     "eslint": "^2.11.1",
