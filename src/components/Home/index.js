@@ -25,7 +25,7 @@ const Home = React.createClass( {
 				<p>You can select a gravatar to show a video (but it won't stop)</p>
 				<p>You can select a sphere to show a 360 photosphere</p>
 
-				{ this.props.status === 'loaded' && <p className="enter"><Link to="/meet2/vr">Enter the virtual world</Link></p> }
+				{ this.props.status === 'loaded' && <p className="enter"><Link to="/vr">Enter the virtual world</Link></p> }
 				{ this.props.status === 'loading' && <p className="enter">Loading users&hellip;</p> }
 				{ this.props.status === 'failed' && <p className="enter">Failed to load users</p> }
 			</div>

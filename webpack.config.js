@@ -14,7 +14,7 @@ var config = {
 	output: {
 		path: path.join( __dirname, 'public_html', 'meet2' ),
 		filename: '[name].js',
-		publicPath: '/meet2/'
+		publicPath: '/'
 	},
 	module: {
 		noParse: /node_modules\/aframe\/dist\/aframe.js/,
@@ -45,7 +45,7 @@ var config = {
 	],
 	devServer: {
 		historyApiFallback: {
-			index: '/meet2/'
+			index: '/'
 		},
 		stats: {
 			colors: true,

@@ -5,8 +5,8 @@ import App from './components/App';
 export default function createRoutes() {
 	return (
 		<Router history={ browserHistory }>
-			<Route path="/meet2/" component={ Home }/>
-			<Route path="/meet2/vr" component={ App }/>
+			<Route path="/" component={ Home }/>
+			<Route path="/vr" component={ App }/>
 		</Router>
 	)
 }
